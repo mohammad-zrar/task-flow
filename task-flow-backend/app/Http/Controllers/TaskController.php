@@ -5,21 +5,24 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class TaskController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $tasks = Auth::user()->tasks;
+        $tasks = Auth::user()->tasks()
+            ->where(function ($query) {
+                $query->where('completed', false) // Tasks that are not complete
+                    ->orWhere(function ($subQuery) {
+                        $subQuery->where('completed', true)
+                            ->where('updated_at', '>=', now()->subDay()); // Completed in the last 24 hours
+                    });
+            })
+            ->get();
+
         return response()->json($tasks);
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
 
@@ -43,13 +46,34 @@ class TaskController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Task $task)
     {
-        //
+        Log::info('PASS1: ', $request->all());
+        // Validate the request
+        $validatedData = $request->validate([
+            'title' => 'nullable|string|max:255',
+            'completed' => 'nullable|boolean',
+        ]);
+
+        if (empty($validatedData)) {
+            Log::warning('Validation data is empty: ', $request->all());
+        }
+
+        // Ensure the authenticated user owns the task
+        if ($task->user_id !== Auth::id()) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
+
+        $task->fill($validatedData);
+        $task->save();
+
+        return response()->json([
+            'message' => 'Task updated successfully.',
+            'task' => $task,
+        ], 200);
     }
+
 
     /**
      * Remove the specified resource from storage.

@@ -18,6 +18,6 @@ Route::middleware(['auth:sanctum'])->controller(TaskController::class)->group(fu
     Route::get('tasks', 'index'); // Fetch all tasks
     Route::post('tasks', 'store'); // Create a new task
     // Route::get('tasks/{task}', 'show'); // View a specific task
-    // Route::put('tasks/{task}', 'update'); // Update a specific task
+    Route::put('tasks/{task}', 'update'); // Update a specific task
     // Route::delete('tasks/{task}', 'destroy'); // Delete a specific task
 });
