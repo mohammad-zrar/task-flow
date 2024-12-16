@@ -19,32 +19,31 @@ class UserController extends Controller
         //
     }
 
-    public function login(LoginRequest $request){
-        // $data = $request->validate([
-        //     'email' => 'required|exists:users,email',
-        //     'password' => 'required|string'
-        // ]);
+    public function login(LoginRequest $request)
+    {
+
+        $request->validate([
+            'email' => 'required|exists:users,email',
+            'password' => 'required|string'
+        ]);
 
         $request->authenticate();
 
         $user = Auth::user();
 
         $token = $user->createToken($user->email);
-        
+
         return [
             "user" => $user,
             "token" => $token->plainTextToken
         ];
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', Rules\Password::defaults()],
         ]);
 
@@ -53,8 +52,6 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->string('password')),
         ]);
-
-        // event(new Registered($user));
 
         Auth::login($user);
 
@@ -66,25 +63,16 @@ class UserController extends Controller
         ];
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(User $user)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, User $user)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(User $user)
     {
         //
