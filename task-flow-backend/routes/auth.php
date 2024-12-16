@@ -36,6 +36,7 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->middleware('auth')
     ->name('logout');
 
+
 Route::get('/ping', function () {
     return response()->json(['message' => 'Hello World']);
 })->name('ping');
