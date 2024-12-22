@@ -1,13 +1,9 @@
-import styles from './App.module.scss';
+import { useRoutes } from 'react-router';
+import { appRoutes } from './router/routes';
 
-function App() {
-
-  return (
-    <h1 className={styles.title}>
-
-      Hello World!
-    </h1>
-  )
+export default function App() {
+  const routes = useRoutes(appRoutes)
+  return routes
 }
 
-export default App
+
