@@ -1,0 +1,11 @@
+.container {
+    max-width: 500px;
+    margin: auto;
+
+    .welcomeText {
+        p {
+            color: var(--secondary-color);
+            font-size: 0.8rem;
+        }
+    }
+}
