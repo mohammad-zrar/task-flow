@@ -17,6 +17,7 @@ Route::controller(UserController::class)->group(function () {
 
 Route::middleware(['auth:sanctum'])->controller(TaskController::class)->group(function () {
     Route::get('tasks', 'index');
+    Route::get('my-tasks', 'myTasks');
     Route::post('tasks', 'store');
     Route::put('tasks/{task}', 'update');
     Route::get('tasks/{task}', 'show');

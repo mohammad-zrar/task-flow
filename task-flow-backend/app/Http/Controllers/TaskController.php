@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -10,6 +11,13 @@ use Illuminate\Support\Facades\Log;
 class TaskController extends Controller
 {
     public function index()
+    {
+        $tasks = Task::all();
+
+        return response()->json($tasks);
+    }
+
+    public function myTasks(Request $request): JsonResponse
     {
         $tasks = Auth::user()->tasks()
             ->where(function ($query) {
