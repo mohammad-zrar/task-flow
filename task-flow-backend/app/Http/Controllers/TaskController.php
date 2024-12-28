@@ -38,17 +38,14 @@ class TaskController extends Controller
         ], 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(Task $task)
     {
-        //
+        return response()->json($task);
     }
 
     public function update(Request $request, Task $task)
     {
-        Log::info('PASS1: ', $request->all());
         // Validate the request
         $validatedData = $request->validate([
             'title' => 'nullable|string|max:255',
@@ -74,10 +71,6 @@ class TaskController extends Controller
         ], 200);
     }
 
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Task $task)
     {
         //
