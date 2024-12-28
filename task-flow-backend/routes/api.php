@@ -12,12 +12,11 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 Route::controller(UserController::class)->group(function () {
     Route::post('login', 'login');
     Route::post('register', 'store');
+    Route::get('/users', 'index');
 });
 
 Route::middleware(['auth:sanctum'])->controller(TaskController::class)->group(function () {
-    Route::get('tasks', 'index'); // Fetch all tasks
-    Route::post('tasks', 'store'); // Create a new task
-    // Route::get('tasks/{task}', 'show'); // View a specific task
-    Route::put('tasks/{task}', 'update'); // Update a specific task
-    // Route::delete('tasks/{task}', 'destroy'); // Delete a specific task
+    Route::get('tasks', 'index');
+    Route::post('tasks', 'store');
+    Route::put('tasks/{task}', 'update');
 });

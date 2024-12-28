@@ -11,12 +11,13 @@ use Illuminate\Validation\Rules;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $users = User::all();
+
+        return response()->json([
+            "users" => $users
+        ]);
     }
 
     public function login(LoginRequest $request)
