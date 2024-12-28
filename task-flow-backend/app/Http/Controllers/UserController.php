@@ -31,11 +31,13 @@ class UserController extends Controller
 
         $user = Auth::user();
 
-        $token = $user->createToken($user->email);
+        $token = $user->createToken($user->email, ['*'], now()->addWeek());
 
         return [
             "user" => $user,
-            "token" => $token->plainTextToken
+            "token" => $token->plainTextToken,
+            "expires_at" => $token->accessToken->expires_at,
+
         ];
     }
 
