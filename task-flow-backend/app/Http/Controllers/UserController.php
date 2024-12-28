@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -11,7 +12,7 @@ use Illuminate\Validation\Rules;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(): JsonResponse
     {
         $users = User::all();
 
@@ -66,6 +67,21 @@ class UserController extends Controller
         ];
     }
 
+    public function logout(Request $request)
+    {
+        $request->user()->tokens()->delete();
+
+        return [
+            'message' => 'You are logged out.',
+        ];
+    }
+
+    public function getUser(Request $request)
+    {
+        $user = $request->user();
+        return $user;
+    }
+
     public function show(User $user)
     {
         //
@@ -78,6 +94,6 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-        //
+
     }
 }
