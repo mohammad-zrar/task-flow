@@ -98,7 +98,7 @@ class UserController extends Controller
             ], 404);
         }
 
-        Mail::to("mzrar.dev@gmail.com")->send(new ForogotPassword());
+        Mail::to($user->email)->send(new ForogotPassword($user->name));
 
         return response()->json([
             'message' => 'Password reset link has been sent to your email.',

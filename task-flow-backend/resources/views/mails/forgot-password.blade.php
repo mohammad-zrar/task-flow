@@ -10,6 +10,7 @@
 
 <body>
     <h1>Forgot Password email</h1>
+    <p>Hey {{ $name }}</p>
 </body>
 
 </html>
