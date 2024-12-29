@@ -82,6 +82,25 @@ class UserController extends Controller
         return $user;
     }
 
+    public function forgotPassword(Request $request)
+    {
+        $validatedData = $request->validate([
+            "email" => ["required", "string", "email"],
+        ]);
+
+        $user = User::where('email', $validatedData['email'])->first();
+
+        if (!$user) {
+            return response()->json([
+                'message' => 'The email address does not exist in our records.',
+            ], 404);
+        }
+
+        return response()->json([
+            'message' => 'Password reset link has been sent to your email.',
+        ]);
+    }
+
     public function show(User $user)
     {
         //

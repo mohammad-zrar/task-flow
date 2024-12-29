@@ -11,8 +11,9 @@ Route::middleware(['auth:sanctum'])->controller(UserController::class)->group(fu
 });
 
 Route::controller(UserController::class)->group(function () {
-    Route::post('/login', 'login');
-    Route::post('/register', 'store');
+    Route::post('/login', 'login')->name('login');
+    Route::post('/register', 'store')->name('register');
+    Route::post('/forgot-password', 'forgotPassword')->name("forgotPassword");
 });
 
 Route::middleware(['auth:sanctum'])->controller(TaskController::class)->group(function () {
