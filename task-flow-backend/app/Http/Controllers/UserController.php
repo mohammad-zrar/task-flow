@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Auth\LoginRequest;
+use App\Mail\ForogotPassword;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rules;
 
 class UserController extends Controller
@@ -95,6 +97,8 @@ class UserController extends Controller
                 'message' => 'The email address does not exist in our records.',
             ], 404);
         }
+
+        Mail::to("mzrar.dev@gmail.com")->send(new ForogotPassword());
 
         return response()->json([
             'message' => 'Password reset link has been sent to your email.',
