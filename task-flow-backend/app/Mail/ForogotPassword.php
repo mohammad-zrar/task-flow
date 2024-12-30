@@ -16,7 +16,7 @@ class ForogotPassword extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(private $name)
+    public function __construct(private $name, private $generatedCode)
     {
         //
     }
@@ -38,7 +38,7 @@ class ForogotPassword extends Mailable
     {
         return new Content(
             view: 'mails.forgot-password',
-            with: ['name' => $this->name]
+            with: ['name' => $this->name, 'generatedCode' => $this->generatedCode],
         );
     }
 

@@ -98,11 +98,20 @@ class UserController extends Controller
             ], 404);
         }
 
-        Mail::to($user->email)->send(new ForogotPassword($user->name));
+        $generatedCode = str()->random(6);
+
+
+
+        Mail::to($user->email)->send(new ForogotPassword($user->name, $generatedCode));
 
         return response()->json([
             'message' => 'Password reset link has been sent to your email.',
         ]);
+    }
+
+    public function resetPassword(Request $request)
+    {
+        return response()->json(["message" => "You've got the idea"]);
     }
 
     public function show(User $user)

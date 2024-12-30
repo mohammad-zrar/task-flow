@@ -14,6 +14,7 @@ Route::controller(UserController::class)->group(function () {
     Route::post('/login', 'login')->name('login');
     Route::post('/register', 'store')->name('register');
     Route::post('/forgot-password', 'forgotPassword')->name("forgotPassword");
+    Route::post("/reset-password", 'resetPassword')->name('resetPassword');
 });
 
 Route::middleware(['auth:sanctum'])->controller(TaskController::class)->group(function () {
