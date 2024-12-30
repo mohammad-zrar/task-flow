@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import classes from "./AuthPageContainer.module.scss"
+import { BaseCard } from "./BaseCard";
 
 export default function AuthPageContainer({ children }: { children: ReactNode }) {
     return <div className={classes.container}>
@@ -7,7 +8,12 @@ export default function AuthPageContainer({ children }: { children: ReactNode })
             <img src="/logo.png" alt="Task Flow Logo" />
         </header>
         <main>
-            {children}
+            <div className={classes.content}>
+                <BaseCard>
+                    {children}
+                </BaseCard>
+            </div>
+
         </main>
 
     </div>
