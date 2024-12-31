@@ -10,6 +10,7 @@ export default function LoginPage() {
         email: '',
         password: '',
     });
+    const [loading, setLoading] = useState(true);
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -21,7 +22,9 @@ export default function LoginPage() {
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
+        setLoading(true);
         console.log('Form Submitted:', formData);
+
     };
 
     return (
@@ -50,7 +53,7 @@ export default function LoginPage() {
 
                 <Link className={classes.forgotLink} to='/forgot-password'>Forgot Password</Link>
 
-                <BaseButton type="submit" >
+                <BaseButton type="submit" loading={loading}>
                     Login
                 </BaseButton>
 

@@ -1,12 +1,15 @@
 .baseButton {
-    padding: 0.5rem 1rem;
     font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: var(--button-color);
     color: var(--light-color);
     outline: none;
     border: none;
     border-radius: 4px;
     transition: all 0.3s ease;
+    height: 32px;
 
     &:hover {
         opacity: 0.9;
@@ -57,3 +60,27 @@
     --button-color: var(--success-color);
     --button-color-rgb: 22, 163, 74;
 }
+
+.spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #FFF;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+
+    
+    @keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+    } 
+}
+
+
+
