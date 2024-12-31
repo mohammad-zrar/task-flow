@@ -57,7 +57,7 @@ export default function LoginPage() {
                     Login
                 </BaseButton>
 
-                <BaseButton variant='outlined'   >
+                <BaseButton variant='outlined' to="/register"   >
                     register
                 </BaseButton>
 
