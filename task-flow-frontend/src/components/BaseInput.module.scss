@@ -1,3 +1,20 @@
 .formController {
-    background-color: red;
+    display: grid;
+
+    .label {
+        margin: auto auto 0.1rem 0.2rem;
+        color: var(--secondary-color);
+    }
+
+    .inputField {
+       padding: 0.4rem 0.8rem;
+       border: 1px solid rgba(0,0,0,0.5);
+       background-color: var(--light-color);
+       border-radius: 4px;
+       outline: none;
+       &:focus {
+        border-color: rgba(0,0,0,0.6);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+       }
+    }
 }
