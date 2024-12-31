@@ -19,6 +19,7 @@ function Spinner() {
 export default function BaseButton({ children, onClick, variant = "fill", color = "primary", type = "button", loading = false, to }: BaseButtonProps) {
     const navigate = useNavigate();
     if (to) {
+        type = "button"
         onClick = () => { navigate(to) }
     }
 
