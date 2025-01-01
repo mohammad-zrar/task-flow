@@ -27,7 +27,6 @@ export const register = createAsyncThunk<
        return rejectWithValue(
       error.message || "Failed to register"
     );
-    
     }
    return 'Failed to register';
   }

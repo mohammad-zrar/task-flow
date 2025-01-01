@@ -1,0 +1,14 @@
+.baseTask {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem auto;
+    border: 1px solid var(--secondary-color);
+    border-radius: 4px;
+    padding: 0.25rem;
+
+    .actions {
+        display: flex;
+        gap: 0.5rem;
+    }
+}
