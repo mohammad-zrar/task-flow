@@ -100,10 +100,11 @@ const authSlice = createSlice({
         return;
       }
 
-      performLogout(state);
+       performLogout(state);
     },
     logout(state) {
-      performLogout(state);
+      
+       performLogout(state);
     },
   },
   extraReducers: (builder) => {
@@ -206,12 +207,17 @@ const authSlice = createSlice({
   },
 });
 
-function performLogout(state: typeof initialState) {
+async function performLogout(state: typeof initialState) {
   state.isLoggedIn = false;
   state.error = null;
+  if(localStorage.getItem("authToken")){
+     await api.post("/logout");
+  }
 
   localStorage.removeItem("authToken");
   localStorage.removeItem("expiresAt");
+
+
 }
 
 export const { logout, autoLogin } = authSlice.actions;
