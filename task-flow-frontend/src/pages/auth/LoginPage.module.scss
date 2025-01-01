@@ -12,6 +12,9 @@
 
     .forgotLink {
         text-align: center;
-        margin-bottom: 1rem;
+    }
+
+    .error {
+        color: var(--danger-color);
     }
 }   

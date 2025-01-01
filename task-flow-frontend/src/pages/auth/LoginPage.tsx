@@ -4,13 +4,18 @@ import BaseInput from '../../components/BaseInput';
 import BaseButton from '../../components/BaseButton';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { Link } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../redux/store';
+import { login } from '../../redux/slices/authSlice'
 
 export default function LoginPage() {
+    const dispatch = useDispatch<AppDispatch>();
+    const { loading, error } = useSelector((state: RootState) => state.auth);
+
     const [formData, setFormData] = useState({
         email: '',
         password: '',
     });
-    const [loading, setLoading] = useState(true);
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -20,11 +25,13 @@ export default function LoginPage() {
         }));
     };
 
-    const handleSubmit = (e: FormEvent) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        setLoading(true);
-        console.log('Form Submitted:', formData);
-
+        try {
+            await dispatch(login(formData)).unwrap();
+        } catch (err) {
+            console.error("Login failed:", err);
+        }
     };
 
     return (
@@ -53,6 +60,7 @@ export default function LoginPage() {
 
                 <Link className={classes.forgotLink} to='/forgot-password'>Forgot Password</Link>
 
+                <p className={classes.error}>{error}</p>
                 <BaseButton type="submit" loading={loading}>
                     Login
                 </BaseButton>
@@ -62,7 +70,6 @@ export default function LoginPage() {
                 </BaseButton>
 
             </form>
-
         </AuthPageContainer>
     );
 }
