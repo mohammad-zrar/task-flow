@@ -1,6 +1,6 @@
 import { FormEvent, useState } from "react";
 import AuthPageContainer from "../../components/AuthPageContainer";
-import classes from './RegisterPage.module.scss';
+import classes from './Auth.module.scss';
 import BaseInput from "../../components/BaseInput";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";

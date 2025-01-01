@@ -65,6 +65,22 @@ export const forgotPassword = createAsyncThunk<
   }
 });
 
+export const resetPassword = createAsyncThunk<
+  LoginResponse, // Return type
+  { code: string, password: string, password_confirmation: string }, // Argument type
+  { rejectValue: string } // Rejection type
+>("auth/resetPassword", async (credentials, { rejectWithValue }) => {
+  try {
+    const response = await api.post("/forgot-password", credentials);
+    return response.data; // Assuming response.data is of type LoginResponse
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return rejectWithValue(error.response?.data?.message || "Something went wrong");
+    }
+    return rejectWithValue("An unexpected error occurred");
+  }
+});
+
 
 
 const authSlice = createSlice({
@@ -165,6 +181,23 @@ const authSlice = createSlice({
       })  
          .addCase(
         forgotPassword.rejected,
+        (state, action: PayloadAction<string | undefined>) => {
+          state.loading = false;
+          state.error = action.payload || "Invalid credentials";
+        }
+      )
+       .addCase(resetPassword.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase( resetPassword.fulfilled, (state) => {
+        state.loading = false;
+        state.isLoggedIn = true;
+
+       
+      })  
+        .addCase(
+        resetPassword.rejected,
         (state, action: PayloadAction<string | undefined>) => {
           state.loading = false;
           state.error = action.payload || "Invalid credentials";

@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import AuthPageContainer from "../../components/AuthPageContainer";
-import classes from './ForgotPasswordPage.module.scss';
+import classes from './Auth.module.scss';
 import BaseInput from "../../components/BaseInput";
 import BaseButton from "../../components/BaseButton";
 import { AppDispatch, RootState } from "../../redux/store";

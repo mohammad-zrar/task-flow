@@ -1,4 +1,4 @@
-import classes from './LoginPage.module.scss';
+import classes from './Auth.module.scss';
 import AuthPageContainer from '../../components/AuthPageContainer';
 import BaseInput from '../../components/BaseInput';
 import BaseButton from '../../components/BaseButton';
