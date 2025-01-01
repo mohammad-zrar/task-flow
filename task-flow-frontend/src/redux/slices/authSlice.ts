@@ -16,12 +16,12 @@ const initialState: {
 
 export const register = createAsyncThunk<
   LoginResponse , // Return type
-  { id: string; name: string; email: string; password: string }, // Argument type
+  { name: string; email: string; password: string, password_confirmation: string }, // Argument type
   { rejectValue: string } // Rejection type
 >("auth/register", async (userData, { rejectWithValue }) => {
   try {
-    const response = await api.post("/api/public/register", userData);
-    return response.data.data;
+    const response = await api.post("/register", userData);
+    return response.data
   } catch (error) {
     if(error instanceof Error) {
        return rejectWithValue(
