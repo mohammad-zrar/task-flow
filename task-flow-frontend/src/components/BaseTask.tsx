@@ -10,8 +10,8 @@ export default function BaseTask({ children }: BaseTaskProps) {
         <div className={classes.baseTask}>
             <p>{children}</p>
             <div className={classes.actions}>
-                <BaseButton color="success">Complete</BaseButton>
-                <BaseButton color="danger">Delete</BaseButton>
+                <BaseButton color="success" dense>Complete</BaseButton>
+                <BaseButton color="danger" dense>Delete</BaseButton>
             </div>
         </div>
     )

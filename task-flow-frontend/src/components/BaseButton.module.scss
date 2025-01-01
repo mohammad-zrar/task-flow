@@ -1,86 +1,64 @@
 .baseButton {
-    font-size: 1rem;
-    padding: 0 1rem;
-    display: flex;
-    justify-content: center;
+    display: inline-flex;
     align-items: center;
-    background-color: var(--button-color);
-    color: var(--light-color);
-    outline: none;
-    border: none;
+    justify-content: center;
+    padding: 10px 20px;
     border-radius: 4px;
-    transition: all 0.3s ease;
-    height: 32px;
-    &:hover {
-        opacity: 0.9;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+
+    &.fill {
+        background-color: var(--primary-color);
+        color: #fff;
+        border: none;
     }
-}
 
-/* Variants */
-.flat {
-    color: var(--button-color) ;
-    background-color: transparent;
-
-    &:hover {
-        background-color: rgba(var(--button-color-rgb, 255, 255, 255), 0.1); /* Light background on hover */
+    &.outlined {
+        background: transparent;
+        color: var(--primary-color);
+        border: 2px solid var(--primary-color);
     }
-}
 
-.fill {
-    background-color: var(--button-color);
-    color: var(--light-color) ;
-
-    &:hover {
-        background-color: rgba(var(--button-color-rgb, 255, 255, 255), 0.9); /* Slightly darker on hover */
+    &.flat {
+        background: transparent;
+        color: var(--primary-color);
+        border: none;
     }
-}
 
-.outlined {
-    background-color: transparent;
-    border: 1px solid var(--button-color);
-    color: var(--button-color);
-
-    &:hover {
-        background-color: rgba(var(--button-color-rgb, 255, 255, 255), 0.1); /* Light background with border */
+    &.primary {
+        --primary-color: #007bff;
     }
-}
 
-/* Colors */
-.primary {
-    --button-color: var(--primary-color);
-    --button-color-rgb: 37, 99, 235;
-}
+    &.danger {
+        --primary-color: #dc3545;
+    }
 
-.danger {
-    --button-color: var(--danger-color);
-    --button-color-rgb: 220, 38, 38;
-}
+    &.success {
+        --primary-color: #28a745;
+    }
 
-.success {
-    --button-color: var(--success-color);
-    --button-color-rgb: 22, 163, 74;
+    &.dense {
+        padding: 5px 10px; // Smaller padding
+        font-size: 0.875rem; // Smaller font size
+        border-radius: 3px; // Slightly sharper corners
+    }
 }
 
 .spinner {
-    width: 16px;
-    height: 16px;
-    border: 2px solid #FFF;
-    border-bottom-color: transparent;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid var(--primary-color);
     border-radius: 50%;
-    display: inline-block;
-    box-sizing: border-box;
-    animation: rotation 1s linear infinite;
-
-    
-    @keyframes rotation {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-    } 
+    animation: spin 1s linear infinite;
 }
 
-
-
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
