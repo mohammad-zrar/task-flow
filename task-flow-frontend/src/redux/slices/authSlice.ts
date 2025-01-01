@@ -49,6 +49,23 @@ export const login = createAsyncThunk<
   }
 });
 
+export const forgotPassword = createAsyncThunk<
+  LoginResponse, // Return type
+  { email: string }, // Argument type
+  { rejectValue: string } // Rejection type
+>("auth/forgotPassword", async (credentials, { rejectWithValue }) => {
+  try {
+    const response = await api.post("/forgot-password", credentials);
+    return response.data; // Assuming response.data is of type LoginResponse
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return rejectWithValue(error.response?.data?.message || "Something went wrong");
+    }
+    return rejectWithValue("An unexpected error occurred");
+  }
+});
+
+
 
 const authSlice = createSlice({
   name: "auth",
@@ -102,7 +119,6 @@ const authSlice = createSlice({
           state.error = action.payload || "Failed to register";
         }
       )
-      // Handle login async actions
       .addCase(login.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -110,7 +126,6 @@ const authSlice = createSlice({
       .addCase(
         login.fulfilled,
         (state, action: PayloadAction<LoginResponse>) => {
-          console.log('PASS: ', action.payload)
           state.loading = false;
           state.isLoggedIn = true;
 
@@ -130,7 +145,31 @@ const authSlice = createSlice({
           state.loading = false;
           state.error = action.payload || "Invalid credentials";
         }
-      );
+      )
+      .addCase(forgotPassword.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase( forgotPassword.fulfilled, (state, action: PayloadAction<LoginResponse>) => {
+        state.loading = false;
+        state.isLoggedIn = true;
+
+        localStorage.setItem(
+          "authToken",
+          action.payload.token
+        );
+        localStorage.setItem(
+          "expiresAt",
+          action.payload.expires_at
+        );
+      })  
+         .addCase(
+        forgotPassword.rejected,
+        (state, action: PayloadAction<string | undefined>) => {
+          state.loading = false;
+          state.error = action.payload || "Invalid credentials";
+        }
+      )
   },
 });
 
