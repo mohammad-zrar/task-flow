@@ -1,4 +1,4 @@
-import AuthPageContainer from "../components/AuthPageContainer";
+import AuthPageContainer from "../components/PageContainer";
 
 export default function NotFoundPage() {
     return (

@@ -1,5 +1,5 @@
 import { FormEvent, useState } from "react";
-import AuthPageContainer from "../../components/AuthPageContainer";
+import PageContainer from "../../components/PageContainer";
 import classes from './Auth.module.scss';
 import BaseInput from "../../components/BaseInput";
 import { useDispatch, useSelector } from "react-redux";
@@ -32,7 +32,7 @@ export default function RegisterPage() {
         }
     };
 
-    return <AuthPageContainer>
+    return <PageContainer>
         <div className={classes.welcomeText}>
             <p>Track your tasks as indivitual or team.</p>
             <h1>Register To Task Flow</h1>
@@ -76,5 +76,5 @@ export default function RegisterPage() {
             </BaseButton>
         </form>
 
-    </AuthPageContainer>
+    </PageContainer>
 }

@@ -1,5 +1,5 @@
 import classes from './Auth.module.scss';
-import AuthPageContainer from '../../components/AuthPageContainer';
+import PageContainer from '../../components/PageContainer';
 import BaseInput from '../../components/BaseInput';
 import BaseButton from '../../components/BaseButton';
 import { ChangeEvent, FormEvent, useState } from 'react';
@@ -35,7 +35,7 @@ export default function LoginPage() {
     };
 
     return (
-        <AuthPageContainer>
+        <PageContainer>
             <div className={classes.welcomeText}>
                 <p>Please enter your details</p>
                 <h1>Welcome back</h1>
@@ -70,6 +70,6 @@ export default function LoginPage() {
                 </BaseButton>
 
             </form>
-        </AuthPageContainer>
+        </PageContainer>
     );
 }

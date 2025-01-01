@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import AuthPageContainer from "../../components/AuthPageContainer";
+import PageContainer from "../../components/PageContainer";
 import classes from './Auth.module.scss';
 import BaseInput from "../../components/BaseInput";
 import BaseButton from "../../components/BaseButton";
@@ -30,7 +30,7 @@ export default function ForgotPasswordPage() {
             console.error("Forgot password failed:", err);
         }
     }
-    return <AuthPageContainer>
+    return <PageContainer>
         <div className={classes.welcomeText}>
             <h1>Forgot Passowrd</h1>
         </div>
@@ -55,5 +55,5 @@ export default function ForgotPasswordPage() {
             </BaseButton>
         </form>
 
-    </AuthPageContainer>
+    </PageContainer>
 }

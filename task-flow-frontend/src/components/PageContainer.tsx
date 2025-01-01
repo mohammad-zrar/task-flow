@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import classes from "./AuthPageContainer.module.scss"
+import classes from "./PageContainer.module.scss"
 import { BaseCard } from "./BaseCard";
 
 export default function AuthPageContainer({ children }: { children: ReactNode }) {

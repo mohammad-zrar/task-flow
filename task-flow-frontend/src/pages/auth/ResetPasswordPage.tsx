@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import AuthPageContainer from "../../components/AuthPageContainer";
+import PageContainer from "../../components/PageContainer";
 import BaseButton from "../../components/BaseButton";
 import BaseInput from "../../components/BaseInput";
 import classes from "./Auth.module.scss";
@@ -34,7 +34,7 @@ export default function ResetPasswordPage() {
         }
     };
 
-    return <AuthPageContainer>
+    return <PageContainer>
         <div className={classes.welcomeText}>
             <p>Check your email and enter the code below</p>
         </div>
@@ -75,5 +75,5 @@ export default function ResetPasswordPage() {
             </BaseButton>
 
         </form>
-    </AuthPageContainer>
+    </PageContainer>
 }
