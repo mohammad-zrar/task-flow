@@ -31,7 +31,12 @@ export const createTask = createAsyncThunk<Task, { title: string }>(
 export const deleteTask = createAsyncThunk<number, number>("tasks/deleteTask", async (taskId) => {
     await api.delete(`/tasks/${taskId}`);
     return taskId;
-})
+});
+
+export const updateTask = createAsyncThunk<Task, Task>("tasks/updateTask", async (task) => {
+    const response = await api.put(`/tasks/${task.id}`, task);
+    return response.data.task;
+});
 
 const tasksSlice = createSlice({
     name: "tasks",

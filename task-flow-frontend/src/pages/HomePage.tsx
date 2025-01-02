@@ -86,7 +86,7 @@ export default function HomePage() {
                 <ul className={classes.taskList}>
                     {tasks.map((task) => (
                         <li key={task.id} className={classes.taskItem}>
-                            <BaseTask onDelete={() => openDeleteDialog(task)}>{task.title}</BaseTask>
+                            <BaseTask onDelete={() => openDeleteDialog(task)} completed={!!task.completed}>{task.title}</BaseTask>
                         </li>
                     ))}
                 </ul>

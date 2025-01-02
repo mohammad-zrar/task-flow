@@ -8,6 +8,16 @@
     border-radius: 4px;
     padding:  0.4rem;
 
+    .completed {
+        text-decoration: line-through;
+        color: var(--secondary-color);
+    }
+
+    .uncompleted {
+        text-decoration: none;
+        color: var(--success-color);
+    }
+
     .actions {
         display: flex;
         gap: 0.5rem;
