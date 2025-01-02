@@ -8,6 +8,16 @@
     cursor: pointer;
     transition: all 0.2s ease-in-out;
 
+    &:hover {
+        opacity: 0.8;
+    }
+
+    &:active {
+        transform: scale(
+            0.98
+        );
+    }
+
     &.fill {
         background-color: var(--primary-color);
         color: #fff;
