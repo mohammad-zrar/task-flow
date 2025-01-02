@@ -15,7 +15,7 @@ const initialState: {
 export const fetchTasks = createAsyncThunk<Task[]>(
     "tasks/fetchTasks",
     async () => {
-        const response = await api.get("/tasks");
+        const response = await api.get("/my-tasks");
         return response.data;
     }
 );

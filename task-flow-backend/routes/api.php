@@ -23,4 +23,5 @@ Route::middleware(['auth:sanctum'])->controller(TaskController::class)->group(fu
     Route::post('/tasks', 'store');
     Route::put('/tasks/{task}', 'update');
     Route::get('/tasks/{id}', 'show');
+    Route::delete('/tasks/{id}', 'destroy');
 });
