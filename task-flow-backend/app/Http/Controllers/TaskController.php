@@ -19,17 +19,23 @@ class TaskController extends Controller
 
     public function myTasks(Request $request): JsonResponse
     {
-        $tasks = Auth::user()->tasks()
-            ->where(function ($query) {
-                $query->where('completed', false) // Tasks that are not complete
-                    ->orWhere(function ($subQuery) {
-                        $subQuery->where('completed', true)
-                            ->where('updated_at', '>=', now()->subDay()); // Completed in the last 24 hours
-                    });
-            })
-            ->get();
+        try {
+            $tasks = Auth::user()->tasks()
+                ->where(function ($query) {
+                    $query->where('completed', false) // Tasks that are not complete
+                        ->orWhere(function ($subQuery) {
+                            $subQuery->where('completed', true)
+                                ->where('updated_at', '>=', now()->subDay()); // Completed in the last 24 hours
+                        });
+                })
+                ->get();
 
-        return response()->json($tasks);
+            return response()->json($tasks);
+        } catch (\Exception $e) {
+            Log::error('Error fetching tasks: ', ['error' => $e->getMessage()]);
+            return response()->json(['message' => 'Error fetching tasks'], 500);
+        }
+
     }
     public function store(Request $request)
     {
