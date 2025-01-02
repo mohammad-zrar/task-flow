@@ -9,6 +9,7 @@ import { AppDispatch, RootState } from "../redux/store";
 import { createTask, deleteTask, fetchTasks } from "../redux/slices/taskSlice";
 import BaseInput from "../components/BaseInput";
 import { Task } from "../types/entity-types";
+import { updateTask } from "../redux/slices/taskSlice";
 
 export default function HomePage() {
     const dispatch = useDispatch<AppDispatch>();
@@ -26,13 +27,16 @@ export default function HomePage() {
     const openDeleteDialog = (task: Task) => {
         setSelectedTaskToDelete(task);
         setDeleteDialogOpen(true);
-
     }
 
     const handleDelete = async () => {
         if (!selectedTaskToDelete) return;
         await dispatch(deleteTask(selectedTaskToDelete.id));
         setDeleteDialogOpen(false);
+    }
+
+    const handleUpdate = (task: Task) => async () => {
+        await dispatch(updateTask({ ...task, completed: !task.completed }));
     }
 
 
@@ -86,7 +90,7 @@ export default function HomePage() {
                 <ul className={classes.taskList}>
                     {tasks.map((task) => (
                         <li key={task.id} className={classes.taskItem}>
-                            <BaseTask onDelete={() => openDeleteDialog(task)} completed={!!task.completed}>{task.title}</BaseTask>
+                            <BaseTask onDelete={() => openDeleteDialog(task)} onToggleComplete={handleUpdate(task)} completed={!!task.completed}>{task.title}</BaseTask>
                         </li>
                     ))}
                 </ul>
