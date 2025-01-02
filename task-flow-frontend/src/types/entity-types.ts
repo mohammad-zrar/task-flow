@@ -13,3 +13,9 @@ export type LoginResponse = {
   token: string;
   expires_at: string;
 };
+
+export type Task = {
+  id: number;
+  title: string;
+  completed: boolean;
+}

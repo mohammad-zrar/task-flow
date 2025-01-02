@@ -2,10 +2,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 1rem auto;
+    margin: 0.5rem auto;
+
     border: 1px solid var(--secondary-color);
     border-radius: 4px;
-    padding: 0.25rem;
+    padding:  0.4rem;
 
     .actions {
         display: flex;

@@ -3,3 +3,37 @@
     justify-content: space-between;
     align-items: center;
 }
+
+.features {
+    margin-top: 20px;
+}
+
+.loading {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.error {
+    color: var(--danger-color);
+    font-size: 1.2rem;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.noTasks {
+    color: var(--secondary-color);
+    font-size: 1rem;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.taskList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
