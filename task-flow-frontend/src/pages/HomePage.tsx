@@ -6,29 +6,35 @@ import BaseDialog from "../components/BaseDialog";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
-import { createTask, fetchTasks } from "../redux/slices/taskSlice";
+import { createTask, deleteTask, fetchTasks } from "../redux/slices/taskSlice";
 import BaseInput from "../components/BaseInput";
+import { Task } from "../types/entity-types";
 
 export default function HomePage() {
     const dispatch = useDispatch<AppDispatch>();
     const { tasks, loading, error } = useSelector((state: RootState) => state.tasks);
 
     const [isDialogOpen, setDialogOpen] = useState(false);
+    const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
+
+    const [selectedTaskToDelete, setSelectedTaskToDelete] = useState<Task | null>(null);
+
     const [formData, setFormData] = useState({ title: "" });
     // Optional: For user feedback (e.g., toast messages)
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-    useEffect(() => {
-        dispatch(fetchTasks());
-    }, [dispatch]);
+    const openDeleteDialog = (task: Task) => {
+        setSelectedTaskToDelete(task);
+        setDeleteDialogOpen(true);
 
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setFormData((prevValue) => ({
-            ...prevValue,
-            [name]: value,
-        }));
-    };
+    }
+
+    const handleDelete = async () => {
+        if (!selectedTaskToDelete) return;
+        await dispatch(deleteTask(selectedTaskToDelete.id));
+        setDeleteDialogOpen(false);
+    }
+
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
@@ -43,6 +49,19 @@ export default function HomePage() {
         } catch (err) {
             console.error("Task creation failed:", err);
         }
+    };
+
+
+    useEffect(() => {
+        dispatch(fetchTasks());
+    }, [dispatch]);
+
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormData((prevValue) => ({
+            ...prevValue,
+            [name]: value,
+        }));
     };
 
     return (
@@ -67,11 +86,28 @@ export default function HomePage() {
                 <ul className={classes.taskList}>
                     {tasks.map((task) => (
                         <li key={task.id} className={classes.taskItem}>
-                            <BaseTask>{task.title}</BaseTask>
+                            <BaseTask onDelete={() => openDeleteDialog(task)}>{task.title}</BaseTask>
                         </li>
                     ))}
                 </ul>
             </section>
+
+            <BaseDialog isOpen={isDeleteDialogOpen} title="Delete Task" onClose={() => setDeleteDialogOpen(false)} footer={
+                <>
+                    <BaseButton
+                        onClick={() => setDeleteDialogOpen(false)}
+                        variant="flat"
+                        dense
+                    >
+                        Cancel
+                    </BaseButton>
+                    <BaseButton color="danger" onClick={handleDelete} dense disabled={loading}>
+                        {loading ? "Deleting..." : "Delete"}
+                    </BaseButton>
+                </>
+            }>
+                <p>Are you sure to delete ({selectedTaskToDelete?.title}) task?</p>
+            </BaseDialog>
 
             <form onSubmit={handleSubmit}>
                 <BaseDialog
@@ -102,6 +138,9 @@ export default function HomePage() {
                     />
                 </BaseDialog>
             </form>
+
         </PageContainer>
+
+
     );
 }

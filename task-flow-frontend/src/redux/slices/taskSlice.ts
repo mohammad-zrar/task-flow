@@ -28,6 +28,11 @@ export const createTask = createAsyncThunk<Task, { title: string }>(
     }
 );
 
+export const deleteTask = createAsyncThunk<number, number>("tasks/deleteTask", async (taskId) => {
+    await api.delete(`/tasks/${taskId}`);
+    return taskId;
+})
+
 const tasksSlice = createSlice({
     name: "tasks",
     initialState,
@@ -54,13 +59,26 @@ const tasksSlice = createSlice({
             })
             .addCase(createTask.fulfilled, (state, action) => {
                 state.loading = false;
-                // Add the newly created task to the existing list
                 state.tasks.push(action.payload);
             })
             .addCase(createTask.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.error.message || "Failed to create task";
+            })
+            // deleteTask
+            .addCase(deleteTask.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(deleteTask.fulfilled, (state, action) => {
+                state.loading = false;
+                state.tasks = state.tasks.filter((task) => task.id !== action.meta.arg);
+            })
+            .addCase(deleteTask.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message || "Failed to delete task";
             });
+
     },
 });
 
