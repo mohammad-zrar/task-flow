@@ -17,16 +17,22 @@ export const fetchTasks = createAsyncThunk<Task[]>(
     'tasks/fetchTasks',
     async () => {
         const response = await api.get('/tasks');
-        return response.data; 
+        return response.data;
     }
 );
 
+export const createTask = createAsyncThunk<Task, { title: string }>('tasks/createTask', async (taskData) => {
+    const response = await api.post('/tasks', taskData);
+    return response.data;
+})
+
 const tasksSlice = createSlice({
     name: 'tasks',
-    initialState, 
+    initialState,
     reducers: {
 
-    }, extraReducers: (builder) => {
+    },
+    extraReducers: (builder) => {
         builder
             .addCase(fetchTasks.pending, (state) => {
                 state.loading = true;
